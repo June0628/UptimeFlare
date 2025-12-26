@@ -10,42 +10,75 @@ const pageConfig: PageConfig = {
 
 const workerConfig: WorkerConfig = {
   monitors: [
-    { id: 'realtime_status', name: '实时状态', method: 'GET', target: 'https://tz.121628.xyz' },
-    { id: 'axure_service', name: 'Axure服务', method: 'GET', target: 'http://cloud.121628.xyz' },
-    { id: 'cloud_drive', name: '网盘', method: 'GET', target: 'https://drive.121628.xyz' },
-    { id: 'ai_aggregate', name: 'AI聚合', method: 'GET', target: 'https://ai.121628.xyz' },
-    { id: 'ddns_service', name: 'DDNS', method: 'GET', target: 'http://r2s.121628.xyz:64444' },
+    { 
+      id: 'realtime_status', 
+      name: '实时状态', 
+      method: 'GET', 
+      target: 'https://tz.121628.xyz',
+      checkProxy: 'globalping://gkvf355povkimujfrpygsln4khrnsqow/?magic=CN' 
+    },
+    { 
+      id: 'axure_service', 
+      name: 'Axure服务', 
+      method: 'GET', 
+      target: 'http://cloud.121628.xyz',
+      checkProxy: 'globalping://gkvf355povkimujfrpygsln4khrnsqow/?magic=CN'
+    },
+    { 
+      id: 'cloud_drive', 
+      name: '网盘', 
+      method: 'GET', 
+      target: 'https://drive.121628.xyz',
+      checkProxy: 'globalping://gkvf355povkimujfrpygsln4khrnsqow/?magic=CN'
+    },
+    { 
+      id: 'ai_aggregate', 
+      name: 'AI聚合', 
+      method: 'GET', 
+      target: 'https://ai.121628.xyz',
+      checkProxy: 'globalping://gkvf355povkimujfrpygsln4khrnsqow/?magic=CN'
+    },
+    { 
+      id: 'ddns_service', 
+      name: 'DDNS', 
+      method: 'GET', 
+      target: 'http://r2s.121628.xyz:64444',
+      checkProxy: 'globalping://gkvf355povkimujfrpygsln4khrnsqow/?magic=CN'
+    },
   ],
   notification: {
     webhook: {
       url: 'https://open.feishu.cn/open-apis/bot/v2/hook/773e72e4-bb4c-41dd-904a-fb2513ba11d5',
       method: 'POST',
       payloadType: 'json',
-      // 飞书卡片模式
       payload: {
         msg_type: 'interactive',
         card: {
           header: {
-            title: { tag: 'plain_text', content: '服务状态监控通知' },
-            template: 'orange' 
+            title: { tag: 'plain_text', content: '🚫 服务异常告警' },
+            template: 'red'
           },
           elements: [
             {
               tag: 'div',
-              text: { tag: 'lark_md', content: '**状态更新:**\n$MSG' }
+              text: { tag: 'lark_md', content: '**检测到服务状态变更:**\n$MSG' }
+            },
+            {
+              tag: 'hr'
             },
             {
               tag: 'note',
-              elements: [{ tag: 'plain_text', content: '来自 CF-UptimeFlare 监控系统' }]
+              elements: [{ tag: 'plain_text', content: '监测节点：Globalping (Mainland China)' }]
             }
           ]
         }
       },
     },
     timeZone: 'Asia/Shanghai',
-    gracePeriod: 1,
+    gracePeriod: 1, // 连续失败1次以上再报警，减少误报
   },
 }
 
 const maintenances: MaintenanceConfig[] = []
+
 export { maintenances, pageConfig, workerConfig }
