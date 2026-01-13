@@ -15,7 +15,8 @@ const workerConfig: WorkerConfig = {
       name: '实时状态', 
       method: 'GET', 
       target: 'https://tz.121628.xyz',
-      checkProxy: 'globalping://gkvf355povkimujfrpygsln4khrnsqow/?magic=CN' 
+      // 修改为 Cloudflare 亚太地区 (Asia-Pacific) 节点
+      checkProxy: 'worker://apac' 
     },
     { 
       id: 'axure_service', 
@@ -24,28 +25,32 @@ const workerConfig: WorkerConfig = {
       target: 'http://cloud.121628.xyz',
       expectedCodes: [200, 301, 302],  
       timeout: 20000,
-      checkProxy: 'globalping://gkvf355povkimujfrpygsln4khrnsqow/?magic=CN'
+      // 修改为 Cloudflare 亚太地区
+      checkProxy: 'worker://apac'
     },
     { 
       id: 'cloud_drive', 
       name: '网盘', 
       method: 'GET', 
       target: 'https://drive.121628.xyz',
-      checkProxy: 'globalping://gkvf355povkimujfrpygsln4khrnsqow/?magic=CN'
+      // 修改为 Cloudflare 亚太地区
+      checkProxy: 'worker://apac'
     },
     { 
       id: 'ai_aggregate', 
       name: 'AI聚合', 
       method: 'GET', 
       target: 'https://ai.121628.xyz',
-      checkProxy: 'globalping://gkvf355povkimujfrpygsln4khrnsqow/?magic=CN'
+      // 修改为 Cloudflare 亚太地区
+      checkProxy: 'worker://apac'
     },
     { 
       id: 'ddns_service', 
       name: 'DDNS', 
       method: 'GET', 
       target: 'http://r2s.121628.xyz:64444',
-      checkProxy: 'globalping://gkvf355povkimujfrpygsln4khrnsqow/?magic=CN'
+      // 修改为 Cloudflare 亚太地区
+      checkProxy: 'worker://apac'
     },
   ],
 }
